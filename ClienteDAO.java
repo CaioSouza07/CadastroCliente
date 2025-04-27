@@ -15,9 +15,21 @@ public class ClienteDAO {
        }
    }
 
-   public void select(Cliente cliente){
+   // metodo de select
+   public void select() throws SQLException{
        String query = "SELECT * FROM clientes";
+       try(Connection conn = Conexao.conectar();
+           Statement stmt = conn.createStatement();
+           ResultSet rs = stmt.executeQuery(query)){
 
+           while (rs.next()){
+               int id = rs.getInt("id");
+               String nome = rs.getString("nome");
+               String email = rs.getString("email");
+               int telefone = rs.getInt("telefone");
+               System.out.println("Id: " + id+ ", nome: " + nome + ", email: " + email + ", tel: " + telefone);
+           }
+       }
 
 
    }
